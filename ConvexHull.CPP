@@ -1,5 +1,3 @@
-<snippet>
-	<content><![CDATA[
 /*
     author: Tran Van Nam
     Nguyen Trai High School - Quang Binh
@@ -159,9 +157,3 @@ signed main(){
 
     return 0^0;
 }
-}]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>ConvexHull Bao Lồi</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<!-- <scope>source.python</scope> -->
-</snippet>
