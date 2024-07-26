@@ -1,5 +1,3 @@
-<snippet>
-	<content><![CDATA[
 vector <vector<long long>> Mul(vector <vector<long long>> a, vector <vector<long long>> b){
     vector <vector<long long>> c(a.size(), vector <long long> (b[0].size(), 0));
     for (int i = 0; i < (int)a.size(); i++)
@@ -26,9 +24,3 @@ vector <vector<long long>> Pow(vector <vector<long long>> x, long long y){
     }
     return res;
 }
-]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>Matrix Exponentiation</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<!-- <scope>source.python</scope> -->
-</snippet>
