@@ -134,7 +134,7 @@ long long Area(const vector<Point> &P) {
     // long long ans = 0;
     // for (int i = 0; i < (int)A.size() - 1; i++) ans += 1LL * (A[i + 1].x - A[i].x) * (A[i + 1].y + A[i].y);
     
-    return abs(ans);
+    return abs(ans) / 2.0;
 }
 
 
