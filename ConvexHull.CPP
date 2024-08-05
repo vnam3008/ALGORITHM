@@ -7,36 +7,37 @@ using namespace std;
 
 struct Point{
 	int x, y;
+	Point(int x = 0, int y = 0) : x(x), y(y) {}
 };
 
 // Ax + By = C
 struct Line { 
     double a, b, c;
-    Line(double a = 0, double b = 0, double c = 0) : a(a), b(b), c(c) {}
+    Line(double a = 0.0, double b = 0.0, double c = 0.0) : a(a), b(b), c(c) {}
 };
 
 // Tích có hướng của AB và AC
-long long cross(const Point &A, const Point &B, const Point &C) {
+long long Cross(const Point &A, const Point &B, const Point &C) {
     return 1LL * (B.x - A.x) * (C.y - A.y) - 1LL * (C.x - A.x) * (B.y - A.y);
 }
 
 // Tích vô hướng của AB và AC
-long long dot(const Point &A, const Point &B, const Point &C) {
+long long Dot(const Point &A, const Point &B, const Point &C) {
     return 1LL * (B.x - A.x) * (C.x - A.x) + 1LL * (B.y - A.y) * (C.y - A.y);
 }
 
 // C nằm trên đoạn AB nếu AB * AC = 0 và CA.CB <= 0
 bool onSegment(const Point &A, const Point &B, const Point &C) {
-    return cross(A, B, C) == 0 && dot(C, A, B) <= 0;
+    return Cross(A, B, C) == 0 && Dot(C, A, B) <= 0;
 }
 
-double sqr(int x){
+double Sqr(int x){
 	return (double)1LL*x*x;
 }
 
 // Khoảng cách giữa hai tạo độ
-double dis(const Point &A, const Point &B){
-	return (double)sqrt(sqr(B.x - A.x) + sqr(B.y - A.y));
+double Dis(const Point &A, const Point &B){
+	return (double)sqrt(Sqr(B.x - A.x) + Sqr(B.y - A.y));
 }
 
 // Tìm giao điểm của hai đường thẳng d1 và d2
@@ -66,7 +67,7 @@ pair <double, double> Symmetry(const Point &X, const Line &d) {
 }
 
 // Khoảng cách nhỏ nhất từ một tọa độ (X, Y) = (P[0].x, P[0].y) đến một đa giác
-double minDis(const vector <Point> &P){
+double MinDis(const vector <Point> &P){
 	int N = (int)P.size();
 	double ans = 1e9;
 	for (int i = 1; i < N; i++)
@@ -93,9 +94,9 @@ double minDis(const vector <Point> &P){
 				t >= 1 --> Khoảng cách gần nhất là B
 				0 < 1 < t --> Khoảng cách gần nhất là hình chiếu P lên AB
 			*/
-			if (t <= 0.0) ans = min(ans, dis(P[0], P[i]));
+			if (t <= 0.0) ans = min(ans, Dis(P[0], P[i]));
 			else
-				if (t >= 1.0) ans = min(ans, dis(P[0], P[j]));
+				if (t >= 1.0) ans = min(ans, Dis(P[0], P[j]));
 				else{
 					/*	
 						Vector chỉ phương AB = (xB - xA; yB - yA)
@@ -103,7 +104,7 @@ double minDis(const vector <Point> &P){
 						--> Phương trình tổng quát: a(x - xP) + b(y - yP) = 0
 							--> ax - axP + by - byP = 0
 							--> ax + by - axP - byP = 0
-						d(P, AB) = abs(a*xP + b*yP + c)/sqrt(a*a + b*b)
+						d(P, AB) = abs(a*xP + b*yP + c)/Sqrt(a*a + b*b)
 					*/
 					int a = -P[j].y + P[i].y; 
 					int b = P[j].x - P[i].x;
@@ -117,7 +118,28 @@ double minDis(const vector <Point> &P){
 	return ans;
 }
 
-// Tìm bao lồi (cross > 0 thì lấy cả những tọa độ trên biên còn không cross >= 0 thì không lấy)
+// Tính diện tích của đa giác
+long long Area(const vector<Point> &P) {
+    int n = P.size();
+    long long ans = 0;
+
+    for (int i = 0; i < n; i++) {
+        int j = (i + 1) % n;
+        ans += 1LL * P[i].x * P[j].y;
+        ans -= 1LL * P[j].x * P[i].y;
+    }
+
+    // vector <Point> A = P;
+    // A.push_back(P.front());
+    // long long ans = 0;
+    // for (int i = 0; i < (int)A.size() - 1; i++) ans += 1LL * (A[i + 1].x - A[i].x) * (A[i + 1].y + A[i].y);
+    
+    return abs(ans);
+}
+
+
+
+// Tìm bao lồi (Cross > 0 thì lấy cả những tọa độ trên biên còn không Cross >= 0 thì không lấy)
 vector <Point> ConvexHull(vector <Point> &P){
 	int n = (int)P.size();
 	sort(begin(P), end(P), [&](const Point &A, const Point &B){
@@ -126,11 +148,11 @@ vector <Point> ConvexHull(vector <Point> &P){
 
 	vector <Point> Up, Down;
 	for (int i = 0; i < n; i++){
-		while ((int)Up.size() >= 2 && cross(Up[(int)Up.size() - 2], Up.back(), P[i]) >= 0) Up.pop_back();
+		while ((int)Up.size() >= 2 && Cross(Up[(int)Up.size() - 2], Up.back(), P[i]) >= 0.0) Up.pop_back();
 		Up.push_back(P[i]);
 	}
 	for (int i = n - 1; i >= 0; i--){
-		while ((int)Down.size() >= 2 && cross(Down[(int)Down.size() - 2], Down.back(), P[i]) >= 0) Down.pop_back();
+		while ((int)Down.size() >= 2 && Cross(Down[(int)Down.size() - 2], Down.back(), P[i]) >= 0.0) Down.pop_back();
 		Down.push_back(P[i]);
 	}
 
@@ -153,7 +175,7 @@ signed main(){
     for (int i = 0; i < n; i++) cin >> P[i].x >> P[i].y;
 
 	vector <Point> hull = ConvexHull(P);
-	cout << (int)hull.size();	
+	cout << (int)hull.size();
 
     return 0^0;
 }
