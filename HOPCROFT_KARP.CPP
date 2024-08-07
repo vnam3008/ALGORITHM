@@ -1,7 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-struct matcher {
+struct BipartiteGraph {
     const int maxn = 1e6 + 5;
     const int INF = 1e9 + 5;
     
@@ -10,7 +7,7 @@ struct matcher {
     vector<vector<int>> ke;
     int matched;
 
-    matcher(int numNodes):
+    BipartiteGraph(int numNodes):
         numNodes(numNodes),
         matchL(maxn, 0), matchR(maxn, 0), dist(maxn),
         ke(maxn),
@@ -64,22 +61,3 @@ struct matcher {
         }
     }
 };
-
-signed main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-
-    int n, m, edges; cin >> n >> m >> edges;
-    matcher BipartiteGraph(n);
-    while (edges--){
-        int u, v; cin >> u >> v;
-        BipartiteGraph.add_edge(u, v);
-    }
-
-    BipartiteGraph.process();
-    cout << BipartiteGraph.matched << "\n";
-    for (int i = 1; i <= BipartiteGraph.numNodes; i++)
-        if (BipartiteGraph.matchL[i]) cout << i << " " << BipartiteGraph.matchL[i] << "\n";
-  
-    return 0;
-}
