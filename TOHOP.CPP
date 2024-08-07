@@ -1,13 +1,3 @@
-/*
-    author: Tran Van Nam
-    Nguyen Trai High School - Quang Binh
-*/
-#include <bits/stdc++.h>
-using namespace std;
-
-const int maxn = 2e6 + 5;
-const int MOD = 1e9 + 7;
-
 long long fac[maxn], inv[maxn];
 
 long long Mul(long long a, long long b){
@@ -40,14 +30,4 @@ void Init(){
 long long C(int n, int k){
     if (k < 0 || k > n) return 0;
     return 1LL * (1LL * fac[n] * inv[k] % MOD) * inv[n - k] % MOD;
-}
-
-signed main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-
-    Init();
-    
-    
-    return 0^0;
 }
