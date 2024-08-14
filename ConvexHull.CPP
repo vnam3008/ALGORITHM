@@ -1,10 +1,3 @@
-/*
-    author: Tran Van Nam
-    Nguyen Trai High School - Quang Binh
-*/
-#include <bits/stdc++.h>
-using namespace std;
-
 struct Point{
 	int x, y;
 	Point(int x = 0, int y = 0) : x(x), y(y) {}
@@ -36,7 +29,7 @@ double Sqr(int x){
 }
 
 // Khoảng cách giữa hai tạo độ
-double Dis(const Point &A, const Point &B){
+double Dist(const Point &A, const Point &B){
 	return (double)sqrt(Sqr(B.x - A.x) + Sqr(B.y - A.y));
 }
 
@@ -67,7 +60,7 @@ pair <double, double> Symmetry(const Point &X, const Line &d) {
 }
 
 // Khoảng cách nhỏ nhất từ một tọa độ (X, Y) = (P[0].x, P[0].y) đến một đa giác
-double MinDis(const vector <Point> &P){
+double MinDist(const vector <Point> &P){
 	int N = (int)P.size();
 	double ans = 1e9;
 	for (int i = 1; i < N; i++)
@@ -94,9 +87,9 @@ double MinDis(const vector <Point> &P){
 				t >= 1 --> Khoảng cách gần nhất là B
 				0 < 1 < t --> Khoảng cách gần nhất là hình chiếu P lên AB
 			*/
-			if (t <= 0.0) ans = min(ans, Dis(P[0], P[i]));
+			if (t <= 0.0) ans = min(ans, Dist(P[0], P[i]));
 			else
-				if (t >= 1.0) ans = min(ans, Dis(P[0], P[j]));
+				if (t >= 1.0) ans = min(ans, Dist(P[0], P[j]));
 				else{
 					/*	
 						Vector chỉ phương AB = (xB - xA; yB - yA)
@@ -164,18 +157,4 @@ vector <Point> ConvexHull(vector <Point> &P){
 	for (auto &p: Down) hull.push_back(p);
 	
 	return hull;
-}
-
-signed main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-
-    int n; cin >> n;
-    vector <Point> P(n);
-    for (int i = 0; i < n; i++) cin >> P[i].x >> P[i].y;
-
-	vector <Point> hull = ConvexHull(P);
-	cout << (int)hull.size();
-
-    return 0^0;
 }
