@@ -1,7 +1,7 @@
 int st[LOG + 5][maxn], h[maxn], mn[LOG + 1][maxn], mx[LOG + 1][maxn];
 vector <pair<int, int>> g[maxn];
 
-void Make(){
+void Init(){
 	for (int i = 1; i < maxn; i++)
 		for (int j = 0; j <= LOG; j++){
 			mn[j][i] = INF;
