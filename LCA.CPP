@@ -1,7 +1,7 @@
 int st[LOG + 5][maxn], h[maxn];
 vector <int> g[maxn];
 
-void Make(){
+void Init(){
 	memset(h, 0, sizeof h);
 	memset(st, 0, sizeof st);
 	for (auto &x: g) x.clear();
